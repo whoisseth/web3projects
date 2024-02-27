@@ -1,6 +1,18 @@
 const express = require("express");
 const fs = require("fs");
+const cors = require('cors');
 const { getDataFromJsonFiles } = require("./getDataFromJsonFiles"); // Import your existing function
+
+
+
+// Enable CORS for all routes
+app.use(cors());
+
+// Or enable CORS for specific routes
+// app.get('/route', cors(), (req, res) => {
+//   // Your route handler logic
+// });
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
