@@ -1,18 +1,24 @@
 const express = require("express");
 const fs = require("fs");
-const cors = require('cors');
+const cors = require("cors");
 const { getDataFromJsonFiles } = require("./getDataFromJsonFiles"); // Import your existing function
 
+// Define allowed origins
+const allowedOrigins = ["http://localhost:3000/", "https://web-3-projects.vercel.app/"];
 
+// Configure CORS options globally
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};
 
-// Enable CORS for all routes
-app.use(cors());
-
-// Or enable CORS for specific routes
-// app.get('/route', cors(), (req, res) => {
-//   // Your route handler logic
-// });
-
+// Apply CORS middleware with global options
+app.use(cors(corsOptions));
 
 const app = express();
 const PORT = process.env.PORT || 3001;
